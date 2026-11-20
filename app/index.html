@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solara Cover Studio — GTA-style cover art maker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">S</span>
+    <div>
+      <h1>SOLARA COVER STUDIO</h1>
+      <p>Turn any photo into GTA-style cover art — offline, on your machine.</p>
+    </div>
+  </div>
+  <p class="tagline">Photos never leave this computer. No uploads, no accounts, no network.</p>
+</header>
+
+<main id="studio">
+  <section id="controls" aria-label="Cover controls">
+    <div class="group">
+      <h2>1 · Photos</h2>
+      <p class="hint">Add your own photos, or use a sample. Click a photo, then click a panel in the preview to put it there.</p>
+      <div class="row">
+        <label class="btn" for="upload">+ Add photos</label>
+        <input id="upload" type="file" accept="image/*" multiple hidden>
+      </div>
+      <div class="row" id="sampleRow">
+        <button type="button" class="thumb-btn" data-sample="samples/sunset-boulevard.jpg">Sunset Blvd</button>
+        <button type="button" class="thumb-btn" data-sample="samples/coastal-highway.jpg">Coastal Hwy</button>
+        <button type="button" class="thumb-btn" data-sample="samples/neon-skyline.jpg">Neon Skyline</button>
+      </div>
+      <div id="tray" class="tray" aria-label="Photo library"></div>
+    </div>
+
+    <div class="group">
+      <h2>2 · Layout</h2>
+      <div class="row" id="layoutRow" role="group" aria-label="Panel layout">
+        <button type="button" data-layout="solo">Solo</button>
+        <button type="button" data-layout="duo">Duo</button>
+        <button type="button" data-layout="trio">Trio</button>
+        <button type="button" data-layout="grid" class="active">Grid</button>
+      </div>
+      <p class="hint">Grid is the classic multi-panel poster: one hero shot on top, three below.</p>
+    </div>
+
+    <div class="group">
+      <h2>3 · Selected panel</h2>
+      <p class="hint" id="panelHint">Panel 1 selected. Drag the photo in the preview to move it, or use the sliders.</p>
+      <label class="slider">Zoom
+        <input id="zoom" type="range" min="1" max="2.5" step="0.01" value="1">
+      </label>
+      <label class="slider">Move left / right
+        <input id="panX" type="range" min="-0.4" max="0.4" step="0.01" value="0">
+      </label>
+      <label class="slider">Move up / down
+        <input id="panY" type="range" min="-0.4" max="0.4" step="0.01" value="0">
+      </label>
+      <div class="row">
+        <button type="button" id="fillPanel">Fill panel with photo</button>
+        <button type="button" id="clearPanel">Clear panel</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <h2>4 · Caption</h2>
+      <label class="field">Title
+        <input id="title" type="text" value="SOLARA BAY" maxlength="24">
+      </label>
+      <label class="field">Subtitle
+        <input id="subtitle" type="text" value="Every street has a story" maxlength="48">
+      </label>
+      <label class="slider">Title size
+        <input id="titleSize" type="range" min="60" max="150" step="1" value="100">
+      </label>
+      <div class="row" id="colorRow" aria-label="Title colour">
+        <button type="button" class="swatch active" data-color="#ffffff" style="background:#ffffff" aria-label="White"></button>
+        <button type="button" class="swatch" data-color="#ffd166" style="background:#ffd166" aria-label="Sunset yellow"></button>
+        <button type="button" class="swatch" data-color="#ff5ea8" style="background:#ff5ea8" aria-label="Neon pink"></button>
+        <button type="button" class="swatch" data-color="#59e3ff" style="background:#59e3ff" aria-label="Neon cyan"></button>
+      </div>
+      <div class="row" id="posRow" aria-label="Caption position">
+        <button type="button" data-pos="bottom" class="active">Caption at bottom</button>
+        <button type="button" data-pos="top">Caption at top</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <h2>5 · Colour grade</h2>
+      <div class="row" id="gradeRow" aria-label="Colour grade">
+        <button type="button" data-grade="sunset" class="active">Vice Sunset</button>
+        <button type="button" data-grade="neon">Neon Nights</button>
+        <button type="button" data-grade="golden">Golden Hour</button>
+        <button type="button" data-grade="noir">Noir</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <h2>6 · Export</h2>
+      <div class="row" id="sizeRow" aria-label="Export size">
+        <button type="button" data-size="1080x1080" class="active">1080 × 1080</button>
+        <button type="button" data-size="1080x1350">1080 × 1350</button>
+        <button type="button" data-size="1920x1080">1920 × 1080</button>
+      </div>
+      <button type="button" id="exportBtn" class="btn primary">Export PNG</button>
+      <p class="hint">Exports the exact cover you see in the preview, at full size.</p>
+    </div>
+  </section>
+
+  <section id="previewPane" aria-label="Live preview">
+    <canvas id="cover" width="900" height="900"></canvas>
+    <p class="hint" id="previewHint">Click a panel to select it · drag inside it to move its photo.</p>
+  </section>
+</main>
+
+<footer id="foot">
+  <p>Solara Cover Studio — an original design. No Rockstar Games logo, artwork or font is used. Display type: Anton (SIL Open Font License), shipped under app/fonts.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
